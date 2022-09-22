@@ -34,7 +34,8 @@ function addCountries(obj) {
   clearHtml();
 
   if (obj.length >= 2 && obj.length < 10) {
-    addSmallCountryNames(obj);
+    const markup = addSmallCountryNames(obj);
+    updatePege(countryList, markup);
   }
 
   if (obj.length === 1) {
@@ -52,12 +53,13 @@ function noCountryAlert() {
 }
 
 function addSmallCountryNames(arr) {
-  arr.map(({ flags: { svg }, name: { official } }) =>
-    countryList.insertAdjacentHTML(
-      'beforeend',
-      `<li class="thumb thumb__margin"><img class='flag-img' src=${svg} alt="Country flag" width="40px"><span>${official}</span></li>`
-    )
-  );
+  return arr.map(({ flags: { svg }, name: { official } }) => {
+    return `<li class="thumb thumb__margin"><img class='flag-img' src=${svg} alt="Country flag" width="40px"><span>${official}</span></li>`;
+  }).join('');
+}
+
+function updatePege(element, markup = '') {
+  element.innerHTML = markup;
 }
 
 function addLargeCountryName(arr) {
